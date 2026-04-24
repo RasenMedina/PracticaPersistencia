@@ -1,0 +1,107 @@
+-----------------------------------------------------------------------------------------------------------------
+17-04-2026
+-----------------------------------------------------------------------------------------------------------------
+-> Si fem try with resources no cal fer un finally!!!
+
+try(Connection conn = ConnecioBD.getConnexio();
+	PreparedStatement - smt = conn.preparedStatement(sql);){
+	... //consultes ...
+
+
+} catch(SQLException e){
+	e.printStackTrace ...
+
+}
+
+//finally??? -> No cal!!!
+
+
+-> Els .jar els guardem en una carpeta div
+
+-----------------------------------------------------------------------------------------------------------------
+24-04-2026
+-----------------------------------------------------------------------------------------------------------------
+CONNEXIÓ COMPARTIDA
+Connexió més ràpida
+Menys segura, es pot penjar
+Pros:
+	Rendiment
+	DAO amb mateixa connexió
+	Menys objectes connexió
+Contres:
+	Timeout
+	Connexió oberta massa temps
+	En cas d'excepció no es tanca explícitament
+	Bloqueig a la BDD per transaccions no acabades
+	Variable global -> pèrdua encapsulament
+
+CONNEXIÓ PER OPERACIÓ
+Connexió lenta
+Més segura, en cas de que es pengi
+Pros:
+	Tancament garantit
+	Evitar injecció codi
+	Encapsulació
+	Més fiables davant talls/caigudes
+	Major tractament d'errors
+Contres:
+	Rendiment (moltes connexions)
+	Impossibilitat agrupar varies connexions
+	Concurrència a la BDD quan tenim múltiples usuaris 
+
+El driver manager ja funciona
+Amb microserveis es fan servir altres llibreries: hikari.cp -> treballen amb connexions pool
+
+*******************************************************************************************************************
+JOEL I DARWIN
+
+*******************************************************************************************************************
+La porta d'entrada per accedir a la base de dades
+Pots extreure o introduir dades
+Mètode en funció 
+Per entrar a una base de dades necessites un usuari, una contraseña i una dirección 
+La connexió és la clau de la porta
+Esta puerta hay que abrirla y cerrarla constantemente
+
+Han creada un archivo tipo texto: properties
+
+# MYSQL
+db.mysql.url=jdbc:mysql://localhost:3306/escalada
+db.mysql.user=admin
+db.mysql.password=
+
+# POSTGRES
+
+ConnectionProvider.java
+public interface
+
+MySQLConnection.java
+public class MySQLConnection implements
+public MySQLConnection(String url, String user, String password)
+public Connection getConnection() throws SQLException {
+
+}
+
+ConnectionFactory.java
+InputStream	-> .getResourcesAsStream
+Properties	-> 
+
+SectorMySQLDAO
+
+Conncection conn = provider.get.Connection();
+PreparedStatement ps = conn.prepareStatement(sql);
+
+
+*******************************************************************************************************************
+RAUL I LUCIA
+
+*******************************************************************************************************************
+ConnectionProvider
+Connectar-se una vez i arrastrarlo
+Des del main (obre i tanca)
+El seu ConnectionProvides és una classe, no ha fet una interfície
+
+
+
+
+
