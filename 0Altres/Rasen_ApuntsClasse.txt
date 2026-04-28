@@ -10,7 +10,6 @@ try(Connection conn = ConnecioBD.getConnexio();
 
 } catch(SQLException e){
 	e.printStackTrace ...
-
 }
 
 //finally??? -> No cal!!!
