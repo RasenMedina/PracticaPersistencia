@@ -5,28 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6354abf-d982-4a4b-b95c-e1b2e0154260" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/EscaladaDiagramaDia.dia" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EscaladaDiagramaER.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Github/GitHub_Chat.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Github/Github.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Github/Github2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Github/TrabajarConGit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Guio_Practica.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rasen_ApuntsClasse.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/esquemaRelacinal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelR.mwb" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/escalada/escalada.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/escalada/src/input/InputReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/escalada/src/model/Escalador.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/escalada/src/model/Escola.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/escalada/src/model/Sector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/escalada/src/model/Via.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/escalada/src/util/DBConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/escalada/src/view/Vista.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="3Cyw9dytBzJIIFjQUJhSwNVlRiT" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -36,10 +43,13 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/RASEN/Desktop/Rasen/0Now/DAW_SaPalomera/9PersistenciaDades/PracticaPersistencia",
+    "onboarding.tips.debug.path": "C:/Users/RASEN/Desktop/Rasen/0Now/DAW_SaPalomera/9PersistenciaDades/PracticaPersistencia/escalada/src/Main.java",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -55,5 +65,16 @@
       <updated>1777370967683</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/escalada/src/Main.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
