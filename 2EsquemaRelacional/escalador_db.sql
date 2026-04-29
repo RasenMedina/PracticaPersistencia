@@ -5,7 +5,7 @@ USE escalador;
 DROP TABLE IF EXISTS escoles;
 CREATE TABLE escoles (
 	id_escola INT NOT NULL AUTO_INCREMENT,
-    nom CHAR(20) NOT NULL UNIQUE,
+    nom VARCHAR(20) NOT NULL UNIQUE,
     lloc VARCHAR(20) ,
     popularitat ENUM("baixa", "mitjana", "alta"),
     aproximacio VARCHAR(45),
@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS sectors;
 CREATE TABLE  sectors (
 	id_sector INT NOT NULL AUTO_INCREMENT,
     id_escola INT NOT NULL,
-    nom_sector CHAR(20) NOT NULL,
+    nom_sector VARCHAR(20) NOT NULL,
     longitud DECIMAL(9,6),
     latitude DECIMAL(9,6),
     aproximacio VARCHAR(40),
@@ -49,7 +49,7 @@ CREATE TABLE vies (
 	id_via INT NOT NULL AUTO_INCREMENT,
     id_sector INT NOT NULL,
     id_escalador_creador INT NOT NULL,
-    nom CHAR(20) NOT NULL,
+    nom VARCHAR(20) NOT NULL,
     llargada SMALLINT NOT NULL,
     data_creacio DATE NOT NULL,
     orientacio ENUM("N", "NE", "NO", "SE", "SO", "E", "O", "S"),
