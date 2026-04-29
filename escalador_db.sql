@@ -8,8 +8,9 @@ CREATE TABLE escoles (
     nom CHAR(20) NOT NULL UNIQUE,
     lloc VARCHAR(20) ,
     popularitat ENUM("baixa", "mitjana", "alta"),
+    aproximacio VARCHAR(45),
     
-    PRIMARY KEY (id_escola)
+	CONSTRAINT pk_escola PRIMARY KEY (id_escola)
 );
 
 DROP TABLE IF EXISTS sectors;
@@ -18,13 +19,15 @@ CREATE TABLE  sectors (
     id_escola INT NOT NULL,
     nom_sector CHAR(20) NOT NULL,
     longitud DECIMAL(9,6),
-    lattitude DECIMAL(9,6),
+    latitude DECIMAL(9,6),
     aproximacio VARCHAR(40),
     popularitat ENUM("baixa", "mitjana", "alta"),
     es_gel BOOLEAN,
     
-    PRIMARY KEY (id_sector),
-    FOREIGN KEY (id_escola) REFERENCES escoles(id_escola)
+	CONSTRAINT pk_sector PRIMARY KEY (id_sector),
+	CONSTRAINT fk_escola FOREIGN KEY (id_escola) REFERENCES escoles (id_escola)
+		ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS escaladors;
@@ -38,7 +41,7 @@ CREATE TABLE escaladors(
     data_naix DATE,
     estil ENUM('esportiva', 'classica', 'gel'),
     
-    PRIMARY KEY (id_escalador)
+    CONSTRAINT pk_escalador PRIMARY KEY (id_escalador)
 );
 
 DROP TABLE IF EXISTS vies;
@@ -58,9 +61,13 @@ CREATE TABLE vies (
     data_inici_no_apte DATE,
     data_fi_no_apte DATE,
     
-    PRIMARY KEY (id_via),
-    FOREIGN KEY (id_sector) REFERENCES sectors (id_sector),
-    FOREIGN KEY (id_escalador_creador) REFERENCES escaladors (id_escalador)
+    CONSTRAINT pk_via PRIMARY KEY (id_via),
+    CONSTRAINT fk_sector FOREIGN KEY (id_sector) REFERENCES sectors (id_sector)
+		ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_escalador_creador FOREIGN KEY (id_escalador_creador) REFERENCES escaladors (id_escalador)
+		ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS llargs;
@@ -71,8 +78,8 @@ CREATE TABLE llargs (
     llargada SMALLINT,
     grau_dificultat ENUM('4', '4+', '5', '5+', '6a', '6a+', '6b', '6b+', '6c', '6c+', '7a', '7a+', '7b', '7b+', '7c', '7c+', '8a', '8a+', '8b'),
     
-    PRIMARY KEY (id_llarg),
-    FOREIGN KEY (id_via) REFERENCES vies(id_via)
+    CONSTRAINT pk_llarg PRIMARY KEY (id_llarg),
+    CONSTRAINT fk_via FOREIGN KEY (id_via) REFERENCES vies(id_via)
 );
 
 DROP TABLE IF EXISTS assoliments;
@@ -81,9 +88,13 @@ CREATE TABLE assoliments (
     id_via INT NOT NULL,
     data DATE,
     
-    PRIMARY KEY (id_escalador, id_via, data),
-    FOREIGN KEY (id_escalador) REFERENCES escaladors(id_escalador),
-    FOREIGN KEY (id_via) REFERENCES vies(id_via)
+    CONSTRAINT pk_assoliment PRIMARY KEY (id_escalador, id_via, data),
+    CONSTRAINT fk_assoliment_escalador FOREIGN KEY (id_escalador) REFERENCES escaladors(id_escalador)
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_assoliment_via FOREIGN KEY (id_via) REFERENCES vies(id_via)
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
 
 
@@ -100,7 +111,7 @@ INSERT INTO escoles (id_escola, nom, lloc, popularitat) VALUES
 (9, 'Ceüse', 'França', 'alta'),
 (10, 'Albarracín', 'Teruel', 'baixa');
 
-INSERT INTO sectors (id_sector, id_escola, nom_sector, longitud, lattitude, aproximacio, popularitat, es_gel) VALUES
+INSERT INTO sectors (id_sector, id_escola, nom_sector, longitud, latitude, aproximacio, popularitat, es_gel) VALUES
 (1, 1, 'Siuranella', 0.9324, 41.2581, '15 min', 'alta', 0),
 (2, 1, 'Esperó Primavera', 0.9310, 41.2575, '10 min', 'mitjana', 0),
 (3, 2, 'Laboratori', 0.7850, 41.2843, '5 min', 'alta', 0),
