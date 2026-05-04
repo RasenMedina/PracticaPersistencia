@@ -14,7 +14,7 @@ public class Escalador {
     private int idEscalador;
     /** DNI de l'escalador (NN) */
     private String dni;
-    /** nom de l'escalador */
+    /** nom de l'escalador (NN) */
     private String nom;
     /** primer cognom de l'escalador */
     private String cognom1;
@@ -67,7 +67,7 @@ public class Escalador {
     /** SETTERS amb validació */
 
     private void setIdEscalador(int idEscalador) {
-        if (idEscalador < 0) throw new IllegalArgumentException("ID no vàlid");
+        if (idEscalador < 0) throw new IllegalArgumentException("ID escalador no vàlid");
         this.idEscalador = idEscalador;
     }
 
@@ -79,7 +79,7 @@ public class Escalador {
 
     public void setNom(String nom) {
         if (nom == null || nom.isBlank())
-            throw new IllegalArgumentException("Nom no vàlid");
+            throw new IllegalArgumentException("Nom d'escalador no vàlid");
         this.nom = nom.trim(); //normalitzem nom
     }
 
@@ -119,7 +119,7 @@ public class Escalador {
                 && !e.equals("classica") && !e.equals("gel")) {
             throw new IllegalArgumentException("Estil no vàlid");
         }
-
+        if (e.equals("classica")) e = "clàssica"; //normalitzem accent
         this.estil = e;
     }
 
