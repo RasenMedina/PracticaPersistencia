@@ -1,6 +1,6 @@
-CREATE DATABASE escalador;
+CREATE DATABASE escalada;
 
-USE escalador;
+USE escalada;
 
 DROP TABLE IF EXISTS escoles;
 CREATE TABLE escoles (
