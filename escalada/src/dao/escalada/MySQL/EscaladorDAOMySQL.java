@@ -1,6 +1,6 @@
-package dao.MySQL;
+package dao.escalada.MySQL;
 
-import dao.EscaladorDAO;
+import dao.escalada.EscaladorDAO;
 import model.Escalador;
 import util.DBConnection;
 
@@ -16,7 +16,7 @@ public class EscaladorDAOMySQL implements EscaladorDAO {
     /**
      * CREATE
      */
-    @Overridegit
+    @Override
     public void create(Escalador e) throws Exception {
 
         String sql = "INSERT INTO escalador (dni, nom, cognom1, cognom2, alias, data_naix, estil) VALUES (?, ?, ?, ?, ?, ?, ?)";

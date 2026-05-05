@@ -68,8 +68,10 @@ public class Llarg {
     }
 
     public void setGrauDificultat(String grauDificultat) {
-        if (grauDificultat == null)
-            throw new IllegalArgumentException("Grau null");
+        if (grauDificultat == null){
+            this.grauDificultat = null;
+            return;
+        }
 
         grauDificultat = grauDificultat.trim().toLowerCase();
 

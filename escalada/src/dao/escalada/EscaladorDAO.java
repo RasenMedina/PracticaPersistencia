@@ -1,5 +1,6 @@
-package dao;
+package dao.escalada;
 
+import dao.DAO;
 import model.Escalador;
 
 /**

@@ -125,9 +125,10 @@ public class Via {
     }
 
     public void setOrientacio(String orientacio) {
-        if (orientacio == null)
-            throw new IllegalArgumentException("Orientació null");
-
+        if (orientacio == null){
+            this.orientacio = null;
+            return;
+        }
 
         if (!orientacio.toUpperCase().matches("N|NE|NO|SE|SO|E|O|S"))
             throw new IllegalArgumentException("Orientació no vàlida");
@@ -136,8 +137,13 @@ public class Via {
     }
 
     public void setGrauDificultat(String grauDificultat) {
-        if (grauDificultat == null)
-            throw new IllegalArgumentException("Grau null");
+        if (grauDificultat == null){
+            this.grauDificultat = null;
+            return;
+        }
+
+        if (tipusVia == null)
+            throw new IllegalStateException("Primer s'ha de definir el tipus de via");
 
         grauDificultat = grauDificultat.trim().toLowerCase();
 
@@ -156,8 +162,10 @@ public class Via {
     }
 
     public void setTipusRoca(String tipusRoca) {
-        if (tipusRoca == null)
-            throw new IllegalArgumentException("Tipus roca null");
+        if (tipusRoca == null){
+            this.tipusRoca = null;
+            return;
+        }
 
         String t = tipusRoca.toLowerCase();
 
@@ -170,8 +178,10 @@ public class Via {
     }
 
     public void setAncoratge(String ancoratge) {
-        if (ancoratge == null)
-            throw new IllegalArgumentException("Ancoratge null");
+        if (ancoratge == null){
+            this.ancoratge = null;
+            return;
+        }
 
         if (tipusVia == null)
             throw new IllegalStateException("Primer s'ha de definir el tipus de via");
