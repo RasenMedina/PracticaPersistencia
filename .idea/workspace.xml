@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6354abf-d982-4a4b-b95c-e1b2e0154260" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/escalada/src/dao/DAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/escalada/src/dao/EscaladorDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/escalada/src/dao/EscaladorDAOMySQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/escalada/src/model/Assoliment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/escalada/src/model/Llarg.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/escalada/src/view/Menus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4_5_26.txt" beforeDir="false" afterPath="$PROJECT_DIR$/4_5_26.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/escalada/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/escalada/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/escalada/src/input/InputReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/escalada/src/input/InputReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/escalada/src/model/Escalador.java" beforeDir="false" afterPath="$PROJECT_DIR$/escalada/src/model/Escalador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/escalada/src/model/Escola.java" beforeDir="false" afterPath="$PROJECT_DIR$/escalada/src/model/Escola.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/escalada/src/model/Sector.java" beforeDir="false" afterPath="$PROJECT_DIR$/escalada/src/model/Sector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/escalada/src/model/Via.java" beforeDir="false" afterPath="$PROJECT_DIR$/escalada/src/model/Via.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/escalada/src/util/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/escalada/src/util/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/escalada/src/view/Vista.java" beforeDir="false" afterPath="$PROJECT_DIR$/escalada/src/view/Vista.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
