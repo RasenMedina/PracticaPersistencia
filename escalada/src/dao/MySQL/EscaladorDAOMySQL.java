@@ -1,5 +1,6 @@
-package dao;
+package dao.MySQL;
 
+import dao.EscaladorDAO;
 import model.Escalador;
 import util.DBConnection;
 
