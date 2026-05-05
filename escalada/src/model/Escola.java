@@ -21,6 +21,12 @@ public class Escola {
     private String popularitat;
 
     /**
+     * Constructor buit
+     */
+    public Escola() {
+    }
+
+    /**
      * Constructor complet
      */
     public Escola(int idEscola, String nom, String lloc, String aproximacio, String popularitat) {

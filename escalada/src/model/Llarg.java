@@ -21,6 +21,12 @@ public class Llarg {
     private String grauDificultat;
 
     /**
+     * Constructor buit
+     */
+    public Llarg() {
+    }
+
+    /**
      * Constructor complet
      */
     public Llarg(int idLlarg, int idVia, int num, int llargada, String grauDificultat) {

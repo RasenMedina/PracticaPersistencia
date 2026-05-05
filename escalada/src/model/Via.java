@@ -40,6 +40,12 @@ public class Via {
     private LocalDate dataFiNoApte;
 
     /**
+     * Constructor buit
+     */
+    public Via() {
+    }
+
+    /**
      * Constructor complet
      */
     public Via(int idVia, int idSector, String nom, int idEscaladorCreador, LocalDate dataCreacio, String tipusVia, String orientacio, String grauDificultat, String tipusRoca, String ancoratge, String estat, String restriccions, LocalDate dataIniciNoApte, LocalDate dataFiNoApte) {

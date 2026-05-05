@@ -27,6 +27,12 @@ public class Sector {
     private boolean esGel;
 
     /**
+     * Constructor buit
+     */
+    public Sector() {
+    }
+
+    /**
      * Constructor complet
      */
     public Sector(int idSector, int idEscola, String nom, double longitud, double latitud, String aproximacio, String popularitat, boolean esGel) {

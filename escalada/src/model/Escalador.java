@@ -33,6 +33,13 @@ public class Escalador {
                     "|^[XYZ][0-9]{7}[A-Z]$" +          // NIE
                     "|^[A-Z0-9]{6,9}$";                // Passaport (genèric)
 
+
+    /**
+     * Constructor buit
+     */
+    public Escalador() {
+    }
+
     /**
      * Constructor complet
      */

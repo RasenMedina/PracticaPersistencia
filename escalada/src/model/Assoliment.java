@@ -18,6 +18,12 @@ public class Assoliment {
     private LocalDate data;
 
     /**
+     * Constructor buit
+     */
+    public Assoliment() {
+    }
+
+    /**
      * Constructor complet
      */
     public Assoliment(int idEscalador, int idVia, LocalDate data) {
