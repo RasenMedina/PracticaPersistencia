@@ -65,7 +65,7 @@ public class Main {
 
             try {
                 switch (opcio) {
-
+                    //try catch() dins del case  //funció amb try catch() //validar amb inputReader
                     case 1:
                         String nom = InputReader.llegir("Nom escola");
                         String lloc = InputReader.llegir("Lloc");
