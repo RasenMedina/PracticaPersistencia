@@ -18,8 +18,8 @@ CREATE TABLE  sectors (
 	id_sector INT UNSIGNED NOT NULL AUTO_INCREMENT,
     id_escola INT UNSIGNED NOT NULL,
     nom_sector VARCHAR(20) NOT NULL,
-    longitud DECIMAL(9,6),
-    latitude DECIMAL(9,6),
+    longitud DECIMAL(11,8),
+    latitude DECIMAL(11,8),
     aproximacio VARCHAR(40),
     popularitat ENUM("baixa", "mitjana", "alta"),
     es_gel BOOLEAN NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE llargs (
     id_via INT UNSIGNED NOT NULL,
     ordre INT UNSIGNED NOT NULL COMMENT "Començant per sota",
     llargada SMALLINT NOT NULL,
-    grau_dificultat ENUM('4', '4+', '5', '5+', '6a', '6a+', '6b', '6b+', '6c', '6c+', '7a', '7a+', '7b', '7b+', '7c', '7c+', '8a', '8a+', '8b', '8c', '8c+' , '9a' , '9a+' , '9b' , '9b+' , '9c' ,'9c'),
+    grau_dificultat ENUM('4', '4+', '5', '5+', '6a', '6a+', '6b', '6b+', '6c', '6c+', '7a', '7a+', '7b', '7b+', '7c', '7c+', '8a', '8a+', '8b', '8c', '8c+' , '9a' , '9a+' , '9b' , '9b+' , '9c' ,'9c+'),
     
     CONSTRAINT pk_llarg PRIMARY KEY (id_llarg),
     CONSTRAINT fk_via FOREIGN KEY (id_via) REFERENCES vies(id_via)
@@ -99,76 +99,75 @@ CREATE TABLE assoliments (
         ON UPDATE CASCADE
 );
 
+INSERT INTO escoles (nom, lloc, popularitat, aproximacio) VALUES
+('Siurana', 'Tarragona', 'alta', '15 min caminant'),
+('Montserrat', 'Barcelona', 'alta', '20 min caminant'),
+('Rodellar', 'Huesca', 'alta', '25 min caminant'),
+('Margalef', 'Tarragona', 'alta', '10 min caminant'),
+('Terradets', 'Lleida', 'mitjana', '30 min caminant'),
+('Albarracin', 'Teruel', 'alta', '15 min caminant'),
+('Riglos', 'Huesca', 'mitjana', '20 min caminant'),
+('Cavallers', 'Lleida', 'baixa', '40 min caminant'),
+('Pedraforca', 'Barcelona', 'mitjana', '50 min caminant'),
+('Gelida', 'Barcelona', 'baixa', '10 min caminant');
 
+INSERT INTO sectors (id_escola, nom_sector, longitud, latitude, aproximacio, popularitat, es_gel) VALUES
+(1, 'El Pati', 0.876543, 41.123456, '10 min', 'alta', FALSE),
+(1, 'Can Marges', 0.876500, 41.120000, '15 min', 'alta', FALSE),
+(2, 'Sant Benet', 1.123456, 41.600000, '20 min', 'alta', FALSE),
+(2, 'Gorros', 1.120000, 41.610000, '25 min', 'alta', FALSE),
+(3, 'Mascun', 0.500000, 42.300000, '30 min', 'alta', FALSE),
+(4, 'Raco de la Finestra', 0.400000, 41.400000, '10 min', 'alta', FALSE),
+(5, 'Paret de Catalunya', 0.300000, 42.000000, '30 min', 'mitjana', FALSE),
+(6, 'Sector Arrastradero', 0.200000, 40.400000, '20 min', 'alta', FALSE),
+(7, 'Mallos', 0.100000, 42.200000, '15 min', 'mitjana', FALSE),
+(8, 'Gel Sector', 0.900000, 42.500000, '40 min', 'baixa', TRUE);
 
-INSERT INTO escoles (id_escola, nom, lloc, popularitat) VALUES
-(1, 'Siurana', 'Cornudella', 'alta'),
-(2, 'Margalef', 'Priorat', 'alta'),
-(3, 'Montserrat', 'Bages', 'alta'),
-(4, 'Rodellar', 'Huesca', 'alta'),
-(5, 'Chulilla', 'Valencia', 'mitjana'),
-(6, 'Oliana', 'Alt Urgell', 'alta'),
-(7, 'El Chorro', 'Málaga', 'mitjana'),
-(8, 'Kalymnos', 'Grècia', 'alta'),
-(9, 'Ceüse', 'França', 'alta'),
-(10, 'Albarracín', 'Teruel', 'baixa');
+INSERT INTO escaladors (dni, nom, cog1, cog2, alias, data_naix, estil) VALUES
+('12345678A', 'Marc', 'Garcia', 'Lopez', 'Maki', '1990-05-10', 'esportiva'),
+('23456789B', 'Anna', 'Perez', 'Soler', 'Aneta', '1992-07-21', 'classica'),
+('34567890C', 'Joan', 'Martinez', NULL, 'Jojo', '1985-03-15', 'gel'),
+('45678901D', 'Laura', 'Gomez', 'Ruiz', 'Lau', '1998-11-02', 'esportiva'),
+('56789012E', 'David', 'Torres', NULL, 'Davo', '1988-01-25', 'classica'),
+('67890123F', 'Clara', 'Navarro', 'Diaz', 'Clari', '1995-06-18', 'gel'),
+('78901234G', 'Pol', 'Sanchez', NULL, 'Poli', '2000-09-09', 'esportiva'),
+('89012345H', 'Marta', 'Romero', 'Vega', 'Marti', '1993-12-30', 'classica'),
+('90123456I', 'Nil', 'Ortega', NULL, 'Nilo', '1999-04-14', 'gel'),
+('01234567J', 'Sara', 'Castro', 'Mora', 'Sarita', '1997-08-08', 'esportiva');
 
-INSERT INTO sectors (id_sector, id_escola, nom_sector, longitud, latitude, aproximacio, popularitat, es_gel) VALUES
-(1, 1, 'Siuranella', 0.9324, 41.2581, '15 min', 'alta', 0),
-(2, 1, 'Esperó Primavera', 0.9310, 41.2575, '10 min', 'mitjana', 0),
-(3, 2, 'Laboratori', 0.7850, 41.2843, '5 min', 'alta', 0),
-(4, 2, 'Finestra', 0.7860, 41.2850, '20 min', 'alta', 0),
-(5, 3, 'Cavall Bernat', 1.8123, 41.6012, '45 min', 'alta', 0),
-(6, 4, 'Las Ventanas', -0.0789, 42.2834, '30 min', 'alta', 0),
-(7, 5, 'El Chorrillo', -0.8921, 39.6543, '10 min', 'baixa', 0),
-(8, 6, 'Contrafort', 1.2945, 42.0678, '15 min', 'alta', 0),
-(9, 8, 'Grande Grotta', 26.9234, 37.0012, '25 min', 'alta', 0),
-(10, 9, 'Biographie', 5.9521, 44.5012, '60 min', 'alta', 0);
+INSERT INTO vies (id_sector, id_escalador_creador, nom, data_creacio, orientacio, ancoratge, tipus_roca, tipus_via, estat) VALUES
+(1, 1, 'La Classica', '2010-01-01', 'N', 'parabolts', 'calcaria', 'esportiva', 'Apte'),
+(2, 2, 'El Repte', '2012-05-10', 'S', 'friends', 'granit', 'classica', 'Apte'),
+(3, 3, 'Gel Etern', '2015-03-20', 'N', 'pitons', 'altres', 'gel', 'Apte'),
+(4, 4, 'Via Nova', '2018-07-07', 'E', 'spits', 'calcaria', 'esportiva', 'Apte'),
+(5, 5, 'Desafiament', '2011-11-11', 'O', 'tascons', 'granit', 'classica', 'Apte'),
+(6, 6, 'Fred Extrem', '2019-12-01', 'N', 'pitons', 'altres', 'gel', 'Apte'),
+(7, 7, 'Paret Alta', '2020-06-06', 'S', 'parabolts', 'calcaria', 'esportiva', 'Apte'),
+(8, 8, 'Roca Dura', '2013-03-03', 'E', 'friends', 'granit', 'classica', 'Apte'),
+(9, 9, 'Gel Blau', '2016-09-09', 'N', 'pitons', 'altres', 'gel', 'Apte'),
+(10, 10, 'Final Boss', '2021-10-10', 'O', 'quimics', 'calcaria', 'esportiva', 'Apte');
 
-INSERT INTO escaladors (id_escalador, dni, nom, cog1, cog2, alias, data_naix, estil) VALUES
-(1, '12345678A', 'Adam', 'Ondra', 'S', 'The Beast', '1993-02-05', 'esportiva'),
-(2, '23456789B', 'Chris', 'Sharma', 'G', 'King', '1981-04-23', 'esportiva'),
-(3, '34567890C', 'Alex', 'Honnold', 'P', 'Free Solo', '1985-08-17', 'classica'),
-(4, '45678901D', 'Janja', 'Garnbret', 'M', 'Goat', '1999-03-12', 'esportiva'),
-(5, '56789012E', 'Margo', 'Hayes', 'W', 'Margo', '1998-02-11', 'esportiva'),
-(6, '67890123F', 'Sasha', 'DiGiulian', 'R', 'Sash', '1992-10-23', 'esportiva'),
-(7, '78901234G', 'Edu', 'Marin', 'F', 'Edu', '1985-12-15', 'classica'),
-(8, '89012345H', 'Oriane', 'Bertone', 'L', 'Ori', '2005-03-10', 'esportiva'),
-(9, '90123456I', 'Will', 'Gadd', 'T', 'Ice Man', '1967-03-08', 'gel'),
-(10, '01234567J', 'Laura', 'Rogora', 'B', 'Laura', '2001-04-28', 'esportiva');
-
-INSERT INTO vies (id_via, id_sector, id_escalador_creador, nom, llargada, data_creacio, orientacio, encoratge, tipus_roca, tipus_via, estat) VALUES
-(1, 1, 2, 'La Rambla', 40, '2003-03-08', 'S', 'parabolts', 'calcaria', 'esportiva', 'Apte'),
-(2, 3, 1, 'First Round', 15, '2011-04-19', 'O', 'parabolts', 'conglomerat', 'esportiva', 'Apte'),
-(3, 5, 3, 'Via de l’Aeri', 300, '1970-05-10', 'N', 'pitons', 'conglomerat', 'classica', 'Apte'),
-(4, 6, 2, 'Dolphin', 25, '1995-06-12', 'SE', 'parabolts', 'calcaria', 'esportiva', 'Apte'),
-(5, 8, 1, 'Papichulo', 45, '2008-05-31', 'SO', 'parabolts', 'calcaria', 'esportiva', 'Apte'),
-(6, 10, 1, 'Realization', 35, '2001-07-18', 'S', 'parabolts', 'calcaria', 'esportiva', 'Apte'),
-(7, 2, 7, 'Pati Noso', 20, '2015-10-20', 'E', 'spits', 'calcaria', 'esportiva', 'Apte'),
-(8, 4, 4, 'Era Vella', 50, '2010-02-15', 'NO', 'parabolts', 'conglomerat', 'esportiva', 'Apte'),
-(9, 7, 5, 'Chulilla Way', 30, '2020-01-01', 'S', 'parabolts', 'calcaria', 'esportiva', 'Apte'),
-(10, 9, 8, 'Ixion', 20, '2018-08-05', 'SE', 'parabolts', 'calcaria', 'esportiva', 'Apte');
-
-INSERT INTO llargs (id_via, num, llargada, grau_dificultat) VALUES
-(1, 1, 40, '8b'), 
-(2, 1, 15, '8b'),
-(3, 1, 40, '5+'),
-(3, 2, 35, '6a'), 
-(3, 3, 45, '6b'),
-(4, 1, 25, '7c'),
-(5, 1, 45, '8b'),
-(6, 1, 35, '8b'), 
-(8, 1, 50, '8a+'), 
-(10, 1, 20, '7b'); 
+INSERT INTO llargs (id_via, ordre, llargada, grau_dificultat) VALUES
+(1, 1, 30, '6a'),
+(1, 2, 25, '6b'),
+(2, 1, 40, '5+'),
+(3, 1, 50, '6c'),
+(4, 1, 20, '5'),
+(5, 1, 35, '6a+'),
+(6, 1, 45, '7a'),
+(7, 1, 25, '6b+'),
+(8, 1, 30, '5+'),
+(9, 1, 50, '7b');
 
 INSERT INTO assoliments (id_escalador, id_via, data) VALUES
-(1, 1, '2008-02-10'), 
-(4, 1, '2021-09-15'),
-(2, 1, '2003-03-08'), 
-(1, 2, '2017-02-15'), 
-(10, 5, '2020-07-20'), 
-(5, 6, '2017-09-24'),
-(3, 3, '2014-06-12'),
-(8, 10, '2022-05-18'),
-(1, 5, '2016-12-01'),
-(6, 8, '2019-11-30'); 
+(1, 1, '2022-01-01'),
+(2, 2, '2022-02-02'),
+(3, 3, '2022-03-03'),
+(4, 4, '2022-04-04'),
+(5, 5, '2022-05-05'),
+(6, 6, '2022-06-06'),
+(7, 7, '2022-07-07'),
+(8, 8, '2022-08-08'),
+(9, 9, '2022-09-09'),
+(10, 10, '2022-10-10');
+
