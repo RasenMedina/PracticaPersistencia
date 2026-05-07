@@ -1,6 +1,8 @@
 import controller.*;
 import dao.escalada.MySQL.*;
 import input.InputReader;
+import model.Escola;
+import model.Sector;
 import view.Menus;
 import view.Vista;
 
@@ -74,6 +76,22 @@ public class Main {
                         Vista.ok("Escola creada");
                         break;
 
+                    case 2:
+                        int idEscola = InputReader.llegirInt("Id de l'escola per modificar");
+
+                        String nomMod = InputReader.llegir("Nom de l'escola");
+                        String llocMod = InputReader.llegir("Lloc de l'escole");
+                        String aprMod = InputReader.llegir("Aproximacio de l'escole");
+                        String popMod = InputReader.llegir("Lloc de l'escole");
+
+                        Escola escolaModificat = new Escola(idEscola,nomMod,llocMod,aprMod,popMod);
+                        controller.actualitzar(escolaModificat);
+
+                    case 3:
+                        String nomEscole = InputReader.llegir("Nom de l'escola per buscar");
+
+                        controller.obtenirPerNom(nomEscole);
+
                     case 4:
                         controller.llistarEscoles();
                         break;
@@ -106,6 +124,24 @@ public class Main {
                         Vista.ok("Sector creat");
                         break;
 
+                    case 2:
+                        int id = InputReader.llegirInt("ID del sector a modifier : ");
+                        int idEscola = InputReader.llegirInt("ID de l'escola a modifier : ");
+
+                        String nomNou = InputReader.llegir("Nou nom : ");
+                        double longiNou = InputReader.llegirDouble("Nova longitud : ");
+                        double latiNou = InputReader.llegirDouble("Nova latitud : ");
+                        String aproxNou = InputReader.llegir("Nova aproximació : ");
+                        String popuNou = InputReader.llegir("Nova popularitat : ");
+                        boolean gel = InputReader.llegirBoolean("És de gel? (true/false) : ");
+
+                        Sector sectorEdit = new Sector(id, idEscola, nomNou, longiNou, latiNou, aproxNou, popuNou, gel);
+                        controller.actualitzar(sectorEdit);
+
+                    case 3:
+                        int idSector = InputReader.llegirInt("Id del sector per buscar");
+                        controller.obtenirPerId(idSector);
+
                     case 4:
                         controller.llistarSectors();
                         break;
@@ -134,6 +170,9 @@ public class Main {
                         controller.crearVia(nom);
                         Vista.ok("Via creada");
                         break;
+
+                    case 2:
+
 
                     case 4:
                         controller.llistarVies();
