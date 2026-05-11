@@ -5,6 +5,7 @@ import view.Menus;
 import view.Vista;
 import model.Escola;
 import model.Sector;
+import model.Via;
 
 /**
  * Classe principal que executa el bucle de l'aplicació.
@@ -137,11 +138,13 @@ public class Main {
                             Vista.error("No s'ha trobat cap sector amb aquest ID.");
                         }
                     }
-                    case 4 -> { // Llistar tots els Sectors
+                    case 4 -> {
+                        // Llistar tots els Sectors
                         Vista.titol("LLISTAT DE SECTORS");
                         ctrl.obtenirTots().forEach(s -> Vista.mostrarLn(s.toString()));
                     }
-                    case 5 -> { // Eliminar Sector
+                    case 5 -> {
+                        // Eliminar Sector
                         int id = InputReader.llegirInt("ID del sector a eliminar");
                         if (InputReader.llegirBoolean("Estàs segur d'eliminar aquest sector?")) {
                             ctrl.eliminar(id);
@@ -163,7 +166,53 @@ public class Main {
         do {
             Menus.menuVies();
             opcio = InputReader.llegirOpcio("Escull una operació", 0, 6);
-            // Lògica per a vies...
+
+            try {
+                switch (opcio) {
+                    case 1 -> {
+                        // Crear Via
+                        // InputReader.llegirVia() ja valida tipus, orientació i estat
+                        Via nova = InputReader.llegirVia();
+                        ctrl.crear(nova);
+                        Vista.ok("Via creada amb èxit.");
+                    }
+                    case 2 -> {
+                        // Modificar Via
+                        int id = InputReader.llegirInt("ID de la via a modificar");
+                        Via existent = InputReader.llegirVia();
+                        existent.setIdVia(id);
+                        ctrl.actualitzar(existent);
+                        Vista.ok("Via actualitzada correctament.");
+                    }
+                    case 3 -> {
+                        // Llistar una Via (per ID)
+                        int id = InputReader.llegirInt("ID de la via");
+                        Via v = ctrl.obtenirPerId(id);
+                        if (v != null) {
+                            Vista.mostrarLn(v.toString());
+                        } else {
+                            Vista.error("No s'ha trobat cap via amb l'ID " + id);
+                        }
+                    }
+                    case 4 -> {
+                        // Llistar totes les Vies
+                        Vista.titol("LLISTAT GENERAL DE VIES");
+                        ctrl.obtenirTotes().forEach(v -> Vista.mostrarLn(v.toString()));
+                    }
+                    case 5 -> {
+                        // Eliminar Via
+                        int id = InputReader.llegirInt("ID de la via a eliminar");
+                        if (InputReader.llegirBoolean("Confirmes que vols eliminar la via?")) {
+                            ctrl.eliminar(id);
+                            Vista.ok("Via eliminada del sistema.");
+                        }
+                    }
+                    case 0 -> Vista.info("Tornant al menú principal...");
+                }
+            } catch (Exception e) {
+                // Captura errors com la violació de sectors de gel o noms duplicats
+                Vista.error("Error en la gestió de vies: " + e.getMessage());
+            }
         } while (opcio != 0);
     }
 

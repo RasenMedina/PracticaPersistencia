@@ -81,7 +81,7 @@ public class Via {
 
     /** SETTERS amb validació */
 
-    private void setIdVia(int idVia) {
+    public void setIdVia(int idVia) {
         if (idVia < 0) throw new IllegalArgumentException("ID via no vàlid");
         this.idVia = idVia;
     }

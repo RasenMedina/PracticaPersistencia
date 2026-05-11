@@ -102,7 +102,6 @@ public class Menus {
                 "Llistar una Via (per ID)",
                 "Llistar totes les Vies",
                 "Eliminar Via",
-                "Cercar vies per estat", // Requeriment específic
 
                 "Tornar al menú principal"
         };
