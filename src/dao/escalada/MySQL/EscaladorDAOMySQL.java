@@ -141,6 +141,8 @@ public class EscaladorDAOMySQL implements EscaladorDAO {
         return null;
     }
 
+
+
     /**
      * MÈTODE PRIVAT PER CONVERTIR RESULTSET → OBJECTE
      */
@@ -164,6 +166,15 @@ public class EscaladorDAOMySQL implements EscaladorDAO {
 
         return e;
 
+    }
+
+    @Override
+    public List<Escalador> getByNivell(String nivell) throws Exception {
+        return List.of();
+    }
+    @Override
+    public List<Escalador> getByEstil(String estil) throws SQLException {
+       return List.of();
     }
 
 }

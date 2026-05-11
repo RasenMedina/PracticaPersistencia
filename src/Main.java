@@ -6,6 +6,7 @@ import view.Vista;
 import model.Escola;
 import model.Sector;
 import model.Via;
+import model.Escalador;
 
 /**
  * Classe principal que executa el bucle de l'aplicació.
@@ -221,8 +222,63 @@ public class Main {
         do {
             Menus.menuEscaladors();
             opcio = InputReader.llegirOpcio("Escull una operació", 0, 7);
-            // Lògica per a escaladors...
-        } while (opcio != 0);
+            try {
+                switch (opcio) {
+                    case 1 -> {
+                        // Crear Escalador
+                        // InputReader s'encarrega de demanar DNI, Nom, Cognoms, etc.
+                        Escalador nou = InputReader.llegirEscalador();
+                        ctrl.crear(nou);
+                        Vista.ok("Escalador registrat correctament.");
+                    }
+                    case 2 -> {
+                        // Modificar Escalador
+                        int id = InputReader.llegirInt("ID de l'escalador a modificar");
+                        Escalador existent = InputReader.llegirEscalador();
+                        existent.setIdEscalador(id);
+                        ctrl.actualitzar(existent);
+                        Vista.ok("Dades de l'escalador actualitzades.");
+                    }
+                    case 3 -> {
+                        // Llistar un Escalador (per ID)
+                        int id = InputReader.llegirInt("ID de l'escalador");
+                        Escalador e = ctrl.obtenirPerId(id);
+                        if (e != null) {
+                            Vista.mostrarLn(e.toString());
+                        } else {
+                            Vista.error("No existeix cap escalador amb aquest ID.");
+                        }
+                    }
+                    case 4 -> {
+                        // Llistar tots els Escaladors
+                        Vista.titol("LLISTAT D'ESCALADORS");
+                        ctrl.obtenirTots().forEach(e -> Vista.mostrarLn(e.toString()));
+                    }
+                    case 5 -> {
+                        // Eliminar Escalador
+                        int id = InputReader.llegirInt("ID de l'escalador a eliminar");
+                        if (InputReader.llegirBoolean("Estàs segur d'eliminar aquest perfil?")) {
+                            ctrl.eliminar(id);
+                            Vista.ok("Escalador eliminat.");
+                        }
+                    }
+                    case 6 -> {
+                        // Mostrar escaladors amb el mateix nivell (Requeriment avançat)
+                        String nivell = InputReader.llegir("Introdueix el nivell a cercar (ex: 6a)");
+                        Vista.titol("ESCALADORS AMB NIVELL " + nivell);
+                        ctrl.getEscaladorsPerNivell(nivell).forEach(e -> Vista.mostrarLn(e.toString()));
+                    }
+                    case 7 -> {
+                        // Filtrar per estil preferit
+                        String estil = InputReader.llegir("Estil preferit (ex: Esportiva, Clàssica)");
+                        Vista.titol("ESCALADORS QUE PREFEREIXEN " + estil.toUpperCase());
+                        ctrl.getByEstil(estil).forEach(e -> Vista.mostrarLn(e.toString()));
+                    }
+                    case 0 -> Vista.info("Tornant al menú principal...");
+                }
+            } catch (Exception e) {
+                Vista.error("Error en la gestió d'escaladors: " + e.getMessage());
+            }        } while (opcio != 0);
     }
 
     private static void gestionarLlargs(LlargController ctrl) {

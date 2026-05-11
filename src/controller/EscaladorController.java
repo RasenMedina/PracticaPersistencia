@@ -5,6 +5,7 @@ import model.Escalador;
 import view.Vista;
 
 import java.util.List;
+import java.util.Collections;
 
 public class EscaladorController {
 
@@ -52,5 +53,37 @@ public class EscaladorController {
         for (Escalador e : escaladors) {
             Vista.mostrarLn(e.toString());
         }
+    }
+
+    /**
+     * Obté una llista d'escaladors que tenen un nivell màxim assolit específic.
+     * @param nivell El nivell a cercar (ex: "6a", "7b+")
+     * @return Llista d'objectes Escalador
+     * @throws Exception Si hi ha un error en la consulta a la BD
+     */
+    public List<Escalador> getEscaladorsPerNivell(String nivell) throws Exception {
+        // Validació bàsica
+        if (nivell == null || nivell.trim().isEmpty()) {
+            throw new Exception("El nivell no pot estar buit.");
+        }
+
+        // Crida al mètode del DAO
+        return dao.getByNivell(nivell);
+    }
+
+
+    /**
+     * Obté una llista d'escaladors filtrats pel seu estil preferit.
+     * @param estil El nom de l'estil (ex: "Esportiva", "Gel")
+     * @return Llista d'escaladors que prefereixen aquest estil
+     * @throws Exception Si hi ha un error en la comunicació amb la BD
+     */
+    public List<Escalador> getByEstil(String estil) throws Exception {
+        if (estil == null || estil.trim().isEmpty()) {
+            throw new Exception("L'estil de cerca no pot estar buit.");
+        }
+
+        // Crida al mètode del DAO
+        return dao.getByEstil(estil);
     }
 }
