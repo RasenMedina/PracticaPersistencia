@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
- * Classe utilitària per llegir dades des de teclat
+ * Classe utilitzada per llegir dades des de teclat
  */
 public class InputReader {
 
