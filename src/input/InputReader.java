@@ -266,6 +266,23 @@ public class InputReader {
     }
 
     /**
+     * Llegeix l'estat d'una via tot validant-lo
+     */
+    public static String llegirEstatVia() {
+
+        while (true) {
+
+            String estat = llegir("Estat (apte, construccio, tancada)").toLowerCase();
+
+            if (estat.matches("apte|construccio|tancada")) {
+                return estat;
+            }
+
+            Vista.error("Estat no vàlid");
+        }
+    }
+
+    /**
      * Llegeix un escalador per teclat tot validant les seves dades
      */
     public static Escalador llegirEscalador() {
@@ -305,13 +322,12 @@ public class InputReader {
 
                 l.setIdVia(llegirInt("ID via"));
                 l.setOrdre(llegirInt("Ordre del llarg"));
-                l.setLlargada(llegirDouble("Llargada"));
-                l.setGrauDificultat(llegir("Dificultat"));
+                l.setLlargada(llegirInt("Llargada"));
+                l.setGrauDificultat(llegir("Grau dificultat"));
 
                 return l;
 
             } catch (Exception ex) {
-
                 Vista.error(ex.getMessage());
             }
         }
