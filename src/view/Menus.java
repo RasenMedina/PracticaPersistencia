@@ -161,7 +161,6 @@ public class Menus {
                 "Llistar assoliments d'un escalador",
                 "Llistar assoliments d'una via",
                 "Eliminar registre d'assoliment",
-                "Veure rànquing de nivell màxim",
                 "Tornar al menú principal"
         };
 

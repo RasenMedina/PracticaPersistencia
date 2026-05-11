@@ -2,6 +2,8 @@ package controller;
 
 import dao.escalada.AssolimentDAO;
 import model.Assoliment;
+import model.Escalador;
+import model.Llarg;
 
 import java.util.List;
 
@@ -25,7 +27,11 @@ public class AssolimentController {
         return dao.getByVia(idVia);
     }
 
-    public void eliminar(int idEscalador, int idVia) throws Exception {
-        dao.delete(idEscalador, idVia);
+    public void eliminar(int id) throws Exception {
+        dao.delete(id);
+    }
+
+    public void actualitzar(Assoliment a) throws Exception {
+        dao.update(a);
     }
 }

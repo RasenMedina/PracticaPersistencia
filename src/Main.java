@@ -8,6 +8,7 @@ import model.Sector;
 import model.Via;
 import model.Escalador;
 import model.Llarg;
+import model.Assoliment;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Main {
         ViaController viaCtrl = new ViaController(new ViaDAOMySQL());
         EscaladorController escaladorCtrl = new EscaladorController(new EscaladorDAOMySQL());
         LlargController llargCtrl = new LlargController(new LlargDAOMySQL());
-        // AssolimentController assolimentCtrl = new AssolimentController(new AssolimentDAOMySQL());
+        AssolimentController assolimentCtrl = new AssolimentController(new AssolimentDAOMySQL());
 
         int opcioPrincipal;
 
@@ -43,7 +44,7 @@ public class Main {
                     case 3 -> gestionarVies(viaCtrl);
                     case 4 -> gestionarEscaladors(escaladorCtrl);
                     case 5 -> gestionarLlargs(llargCtrl);
-                    case 6 -> gestionarAssoliments();
+                    case 6 -> gestionarAssoliments(assolimentCtrl);
                     case 7 -> gestionarConsultesAvancades(escolaCtrl, viaCtrl, sectorCtrl, escaladorCtrl);
                     case 0 -> Vista.info("Tancant connexions i sortint del sistema...");
                 }
@@ -308,7 +309,8 @@ public class Main {
                         ctrl.actualitzar(existent);
                         Vista.ok("Llarg actualitzat correctament.");
                     }
-                    case 3 -> { // Llistar un Llarg (per ID)
+                    case 3 -> {
+                        // Llistar un Llarg (per ID)
                         int id = InputReader.llegirInt("ID del llarg a consultar");
                         List<Llarg> l = ctrl.obtenirPerId(id);
                         if (l != null) {
@@ -317,7 +319,8 @@ public class Main {
                             Vista.error("No s'ha trobat cap llarg amb aquest ID.");
                         }
                     }
-                    case 4 -> { // Llistar tots els Llargs
+                    case 4 -> {
+                        // Llistar tots els Llargs
                         Vista.titol("LLISTAT GENERAL DE LLARGS");
                         ctrl.obtenirTotes().forEach(l -> Vista.mostrarLn(l.toString()));
                     }
@@ -328,7 +331,8 @@ public class Main {
                             Vista.ok("Llarg eliminat.");
                         }
                     }
-                    case 6 -> { // Veure llargs d'una Via específica
+                    case 6 -> {
+                        // Veure llargs d'una Via específica
                         int idVia = InputReader.llegirInt("Introdueix l'ID de la via");
                         Vista.titol("LLARGS DE LA VIA ID: " + idVia);
                         // Aquest mètode ha de retornar la llista filtrada des del DAO
@@ -342,8 +346,61 @@ public class Main {
         } while (opcio != 0);
     }
 
-    private static void gestionarAssoliments(){}
+    /**
+     * Gestiona les interaccions del menú d'assoliments (logs de pujades).
+     * @param ctrl El controlador d'assoliments injectat des del Main.
+     */
+    private static void gestionarAssoliments(AssolimentController ctrl) {
+        int opcio;
+        do {
+            Menus.menuAssoliments();
+            opcio = InputReader.llegirOpcio("Escull una operació", 0, 6);
 
+            try {
+                switch (opcio) {
+                    case 1 -> {
+                        // Registrar nou assoliment
+                        // InputReader.llegirAssoliment() demana idEscalador, idVia, data, etc.
+                        Assoliment nou = InputReader.llegirAssoliment();
+                        ctrl.registrar(nou);
+                        Vista.ok("Assoliment registrat amb èxit!");
+                    }
+                    case 2 -> {
+                        // Modificar dades d'un assoliment
+                        int id = InputReader.llegirInt("ID del registre d'assoliment a modificar");
+                        Assoliment existent = InputReader.llegirAssoliment();
+                        existent.setIdAssoliment(id);
+                        ctrl.actualitzar(existent);
+                        Vista.ok("Registre actualitzat.");
+                    }
+                    case 3 -> {
+                        // Llistar assoliments d'un escalador
+                        int idEscalador = InputReader.llegirInt("ID de l'escalador");
+                        Vista.titol("ASSOLIMENTS DE L'ESCALADOR " + idEscalador);
+                        ctrl.perEscalador(idEscalador).forEach(a -> Vista.mostrarLn(a.toString()));
+                    }
+                    case 4 -> {
+                        // Llistar assoliments d'una via
+                        int idVia = InputReader.llegirInt("ID de la via");
+                        Vista.titol("ESCALADORS QUE HAN PUJAT LA VIA " + idVia);
+                        ctrl.perVia(idVia).forEach(a -> Vista.mostrarLn(a.toString()));
+                    }
+                    case 5 -> {
+                        // Eliminar registre
+                        int id = InputReader.llegirInt("ID del registre a eliminar");
+                        if (InputReader.llegirBoolean("Vols esborrar aquest registre de log?")) {
+                            ctrl.eliminar(id);
+                            Vista.ok("Registre eliminat.");
+                        }
+                    }
+
+                    case 0 -> Vista.info("Tornant al menú principal...");
+                }
+            } catch (Exception e) {
+                Vista.error("Error en la gestió d'assoliments: " + e.getMessage());
+            }
+        } while (opcio != 0);
+    }
     private static void gestionarConsultesAvancades(EscolaController e, ViaController v, SectorController s, EscaladorController esc) {
         int opcio;
         do {

@@ -2,7 +2,7 @@ package dao.escalada;
 
 import dao.DAO;
 import model.Assoliment;
-
+import java.sql.SQLException;
 import java.util.List;
 
 /**

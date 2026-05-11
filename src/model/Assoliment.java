@@ -42,7 +42,7 @@ public class Assoliment {
     /**
      * Mètode d'inicialització
      */
-    private void inicialitzar(int idAssoliment, int idEscalador, int idVia, LocalDate dataAssoliment) {
+    public void inicialitzar(int idAssoliment, int idEscalador, int idVia, LocalDate dataAssoliment) {
         setIdAssoliment(idAssoliment);
         setIdEscalador(idEscalador);
         setIdVia(idVia);

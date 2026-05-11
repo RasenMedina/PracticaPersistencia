@@ -161,4 +161,19 @@ public class AssolimentDAOMySQL implements AssolimentDAO {
 
         return a;
     }
+
+    @Override
+    public List<Assoliment> getByEscalador(int idEscalador) throws Exception {
+        return List.of();
+    }
+
+    @Override
+    public List<Assoliment> getByVia(int idVia) throws Exception {
+        return List.of();
+    }
+
+    @Override
+    public boolean exists(int idEscalador, int idVia) throws Exception {
+        return false;
+    }
 }
