@@ -1,5 +1,6 @@
 package input;
 
+import model.*;
 import view.Vista;
 
 import java.time.LocalDate;
@@ -103,4 +104,241 @@ public class InputReader {
             }
         }
     }
+
+    /**
+     * Llegeix la popularitat tot validant-la
+     */
+    public static String llegirPopularitat() {
+
+        while (true) {
+
+            String p = llegir("Popularitat (baixa, mitjana, alta)").toLowerCase();
+
+            if (p.matches("baixa|mitjana|alta")) {
+                return p;
+            }
+
+            Vista.error("Popularitat no vàlida");
+        }
+    }
+
+    /**
+     * Llegeix l'orientació tot validant-la
+     */
+    public static String llegirOrientacio() {
+
+        while (true) {
+
+            String o = llegir("Orientació (N, NE, NO, E, O, S, SE, SO)").toUpperCase();
+
+            if (o.matches("N|NE|NO|E|O|S|SE|SO")) {
+                return o;
+            }
+
+            Vista.error("Orientació incorrecta");
+        }
+    }
+
+    /**
+     * Llegeix el tipus de via tot validant-la
+     */
+    public static String llegirTipusVia() {
+
+        while (true) {
+
+            String tipus = llegir("Tipus (esportiva, classica, gel)").toLowerCase();
+
+            if (tipus.matches("esportiva|classica|gel")) {
+                return tipus;
+            }
+
+            Vista.error("Tipus incorrecte");
+        }
+    }
+
+    /**
+     * Llegeix el grau de dificultat tot validant-lo mitjançant el tipus de via
+     */
+    public static String llegirGrauDificultat(String tipusVia) {
+
+        while (true) {
+
+            String grau = llegir("Grau dificultat").toLowerCase();
+
+            if (tipusVia.equals("esportiva")) {
+
+                if (grau.matches("4\\+?|5\\+?|6[abc]?\\+?|7[abc]?\\+?|8[abc]?\\+?|9[abc]?\\+?")) {
+                    return grau;
+                }
+            }
+
+            if (tipusVia.equals("classica") || tipusVia.equals("gel")) {
+
+                if (grau.matches("4\\+?|5\\+?|6[abc]?\\+?|7[abc]?\\+?|8[ab]?\\+?")) {
+                    return grau;
+                }
+            }
+
+            Vista.error("Grau no vàlid pel tipus de via");
+        }
+    }
+
+    /**
+     * Llegeix una Escola per teclat tot validant les seves dades
+     */
+    public static Escola llegirEscola() {
+
+        while (true) {
+
+            try {
+
+                Escola e = new Escola();
+
+                e.setNom(llegir("Nom escola"));
+                e.setLloc(llegir("Població"));
+                e.setPopularitat(llegirPopularitat());
+                e.setAproximacio(llegir("Aproximació"));
+
+                return e;
+
+            } catch (Exception ex) {
+                Vista.error("Error creant escola");
+            }
+        }
+    }
+
+    /**
+     * Llegeix un sector per teclat tot validant les seves dades
+     */
+    public static Sector llegirSector() {
+
+        while (true) {
+
+            try {
+
+                Sector s = new Sector();
+
+                s.setIdEscola(llegirInt("ID escola"));
+                s.setNom(llegir("Nom sector"));
+                s.setLatitud(llegirDouble("Latitud"));
+                s.setLongitud(llegirDouble("Longitud"));
+                s.setAproximacio(llegir("Aproximació"));
+                s.setPopularitat(llegirPopularitat());
+                s.setEsGel(llegirBoolean("És sector de gel?"));
+
+                return s;
+
+            } catch (Exception e) {
+                Vista.error("Error creant sector");
+            }
+        }
+    }
+
+    /**
+     * Llegeix una via per teclat tot validant les seves dades
+     */
+    public static Via llegirVia() {
+
+        while (true) {
+
+            try {
+
+                Via v = new Via();
+
+                v.setIdSector(llegirInt("ID sector"));
+                v.setIdEscaladorCreador(llegirInt("ID escalador creador"));
+                v.setNom(llegir("Nom via"));
+
+                String tipus = llegirTipusVia();
+                v.setTipusVia(tipus);
+
+                v.setOrientacio(llegirOrientacio());
+                v.setAncoratge(llegir("Ancoratge"));
+                v.setTipusRoca(llegir("Tipus roca"));
+                v.setEstat(llegir("Estat"));
+
+                return v;
+
+            } catch (Exception e) {
+                Vista.error("Error creant via");
+            }
+        }
+    }
+
+    /**
+     * Llegeix un escalador per teclat tot validant les seves dades
+     */
+    public static Escalador llegirEscalador() {
+
+        while (true) {
+
+            try {
+
+                Escalador e = new Escalador();
+
+                e.setDni(llegir("DNI"));
+                e.setNom(llegir("Nom"));
+                e.setCognoms(llegir("Cognoms"));
+                e.setAlias(llegir("Àlies"));
+                e.setDataNaix(llegirData("Data naixement (yyyy-MM-dd)"));
+                e.setEstilPref(llegir("Estil preferit"));
+
+                return e;
+
+            } catch (Exception ex) {
+
+                Vista.error(ex.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Llegeix un llarg per teclat tot validant les seves dades
+     */
+    public static Llarg llegirLlarg() {
+
+        while (true) {
+
+            try {
+
+                Llarg l = new Llarg();
+
+                l.setIdVia(llegirInt("ID via"));
+                l.setOrdre(llegirInt("Ordre del llarg"));
+                l.setLlargada(llegirDouble("Llargada"));
+                l.setGrauDificultat(llegir("Dificultat"));
+
+                return l;
+
+            } catch (Exception ex) {
+
+                Vista.error(ex.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Llegeix un assoliment pert teclat tot validant les seves dades
+     */
+    public static Assoliment llegirAssoliment() {
+
+        while (true) {
+
+            try {
+
+                Assoliment a = new Assoliment();
+
+                a.setIdEscalador(llegirInt("ID escalador"));
+                a.setIdVia(llegirInt("ID via"));
+                a.setDataAssoliment(llegirData("Data assoliment (yyyy-MM-dd)"));
+
+                return a;
+
+            } catch (Exception ex) {
+
+                Vista.error(ex.getMessage());
+            }
+        }
+    }
+
 }

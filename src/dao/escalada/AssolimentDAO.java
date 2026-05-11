@@ -11,17 +11,17 @@ import java.util.List;
 public interface AssolimentDAO extends DAO<Assoliment> {
 
     /**
-     * Obtenir assoliments d'un escalador
+     * Obté tots els assoliments d'un escalador
      */
     List<Assoliment> getByEscalador(int idEscalador) throws Exception;
 
     /**
-     * Obtenir assoliments d'una via
+     * Obté tots els assoliments d'una via
      */
     List<Assoliment> getByVia(int idVia) throws Exception;
 
     /**
-     * Comprovar si existeix un assoliment
+     * Comprova si un escalador ja ha assolit una via
      */
     boolean exists(int idEscalador, int idVia) throws Exception;
 }

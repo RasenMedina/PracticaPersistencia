@@ -8,33 +8,74 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementació DAO MySQL per Assoliment
+ */
 public class AssolimentDAOMySQL implements AssolimentDAO {
 
+    /**
+     * CREATE
+     */
     @Override
     public void create(Assoliment a) throws Exception {
 
-        String sql = "INSERT INTO assoliment (id_escalador, id_via, data) VALUES (?, ?, ?)";
+        String sql = """
+                INSERT INTO assoliment
+                (id_escalador, id_via, data_assoliment)
+                VALUES (?, ?, ?)
+                """;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, a.getIdEscalador());
             ps.setInt(2, a.getIdVia());
-            ps.setDate(3, a.getData() != null ? Date.valueOf(a.getData()) : null);
+
+            if (a.getDataAssoliment() != null) {
+                ps.setDate(3, Date.valueOf(a.getDataAssoliment()));
+            } else {
+                ps.setNull(3, Types.DATE);
+            }
 
             ps.executeUpdate();
         }
     }
 
+    /**
+     * GET BY ID
+     */
     @Override
-    public Assoliment getById(int id) {
-        return null; // no aplica (clau composta)
+    public Assoliment getById(int id) throws Exception {
+
+        String sql = """
+                SELECT *
+                FROM assoliment
+                WHERE id_assoliment = ?
+                """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return mapAssoliment(rs);
+            }
+        }
+
+        return null;
     }
 
+    /**
+     * GET ALL
+     */
     @Override
     public List<Assoliment> getAll() throws Exception {
 
         List<Assoliment> llista = new ArrayList<>();
+
         String sql = "SELECT * FROM assoliment";
 
         try (Connection conn = DBConnection.getConnection();
@@ -42,95 +83,82 @@ public class AssolimentDAOMySQL implements AssolimentDAO {
              ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
-                llista.add(map(rs));
+                llista.add(mapAssoliment(rs));
             }
         }
 
         return llista;
     }
 
+    /**
+     * UPDATE
+     */
     @Override
     public void update(Assoliment a) throws Exception {
 
-        String sql = "UPDATE assoliment SET data=? WHERE id_escalador=? AND id_via=?";
+        String sql = """
+                UPDATE assoliment
+                SET id_escalador = ?,
+                    id_via = ?,
+                    data_assoliment = ?
+                WHERE id_assoliment = ?
+                """;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setDate(1, a.getData() != null ? Date.valueOf(a.getData()) : null);
-            ps.setInt(2, a.getIdEscalador());
-            ps.setInt(3, a.getIdVia());
+            ps.setInt(1, a.getIdEscalador());
+            ps.setInt(2, a.getIdVia());
+
+            if (a.getDataAssoliment() != null) {
+                ps.setDate(3, Date.valueOf(a.getDataAssoliment()));
+            } else {
+                ps.setNull(3, Types.DATE);
+            }
+
+            ps.setInt(4, a.getIdAssoliment());
 
             ps.executeUpdate();
         }
     }
 
+    /**
+     * DELETE
+     */
     @Override
-    public void delete(int id) {
-        // no aplica
-    }
+    public void delete(int id) throws Exception {
 
-    @Override
-    public List<Assoliment> getByEscalador(int idEscalador) throws Exception {
-
-        List<Assoliment> llista = new ArrayList<>();
-        String sql = "SELECT * FROM assoliment WHERE id_escalador=?";
+        String sql = """
+                DELETE FROM assoliment
+                WHERE id_assoliment = ?
+                """;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, idEscalador);
-            ResultSet rs = ps.executeQuery();
+            ps.setInt(1, id);
 
-            while (rs.next()) {
-                llista.add(map(rs));
-            }
-        }
-
-        return llista;
-    }
-
-    @Override
-    public List<Assoliment> getByVia(int idVia) throws Exception {
-
-        List<Assoliment> llista = new ArrayList<>();
-        String sql = "SELECT * FROM assoliment WHERE id_via=?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, idVia);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                llista.add(map(rs));
-            }
-        }
-
-        return llista;
-    }
-
-    @Override
-    public boolean exists(int idEscalador, int idVia) throws Exception {
-
-        String sql = "SELECT 1 FROM assoliment WHERE id_escalador=? AND id_via=?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, idEscalador);
-            ps.setInt(2, idVia);
-
-            ResultSet rs = ps.executeQuery();
-            return rs.next();
+            ps.executeUpdate();
         }
     }
 
-    private Assoliment map(ResultSet rs) throws SQLException {
-        return new Assoliment(
-                rs.getInt("id_escalador"),
-                rs.getInt("id_via"),
-                rs.getDate("data") != null ? rs.getDate("data").toLocalDate() : null
-        );
+    /**
+     * Converteix ResultSet → Assoliment
+     */
+    private Assoliment mapAssoliment(ResultSet rs) throws SQLException {
+
+        Assoliment a = new Assoliment();
+
+        a.setIdAssoliment(rs.getInt("id_assoliment"));
+        a.setIdEscalador(rs.getInt("id_escalador"));
+        a.setIdVia(rs.getInt("id_via"));
+
+        Date data = rs.getDate("data_assoliment");
+
+        if (data != null) {
+            a.setDataAssoliment(data.toLocalDate());
+        }
+
+        return a;
     }
 }

@@ -69,7 +69,7 @@ public class Escalador {
 
     /** SETTERS amb validació */
 
-    private void setIdEscalador(int idEscalador) {
+    public void setIdEscalador(int idEscalador) {
         if (idEscalador < 0) throw new IllegalArgumentException("ID escalador no vàlid");
         this.idEscalador = idEscalador;
     }

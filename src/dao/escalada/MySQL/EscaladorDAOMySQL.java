@@ -19,18 +19,17 @@ public class EscaladorDAOMySQL implements EscaladorDAO {
     @Override
     public void create(Escalador e) throws Exception {
 
-        String sql = "INSERT INTO escalador (dni, nom, cognom1, cognom2, alias, data_naix, estil) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO escalador (dni, nom, cognoms, alias, data_naix, estil_preferit) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, e.getDni());
             ps.setString(2, e.getNom());
-            ps.setString(3, e.getCognom1());
-            ps.setString(4, e.getCognom2());
+            ps.setString(3, e.getCognoms());
             ps.setString(5, e.getAlias());
             ps.setDate(6, e.getDataNaix() != null ? Date.valueOf(e.getDataNaix()) : null);
-            ps.setString(7, e.getEstil());
+            ps.setString(7, e.getEstilPref());
 
             ps.executeUpdate();
         }
@@ -87,17 +86,16 @@ public class EscaladorDAOMySQL implements EscaladorDAO {
     @Override
     public void update(Escalador e) throws Exception {
 
-        String sql = "UPDATE escalador SET nom=?, cognom1=?, cognom2=?, alias=?, data_naix=?, estil=? WHERE id_escalador=?";
+        String sql = "UPDATE escalador SET nom=?, cognoms=?, alias=?, data_naix=?, estil_pref=? WHERE id_escalador=?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, e.getNom());
-            ps.setString(2, e.getCognom1());
-            ps.setString(3, e.getCognom2());
+            ps.setString(2, e.getCognoms());
             ps.setString(4, e.getAlias());
             ps.setDate(5, e.getDataNaix() != null ? Date.valueOf(e.getDataNaix()) : null);
-            ps.setString(6, e.getEstil());
+            ps.setString(6, e.getEstilPref());
             ps.setInt(7, e.getIdEscalador());
 
             ps.executeUpdate();
@@ -148,16 +146,24 @@ public class EscaladorDAOMySQL implements EscaladorDAO {
      */
     private Escalador mapEscalador(ResultSet rs) throws SQLException {
 
-        return new Escalador(
-                rs.getInt("id_escalador"),
-                rs.getString("dni"),
-                rs.getString("nom"),
-                rs.getString("cognom1"),
-                rs.getString("cognom2"),
-                rs.getString("alias"),
-                rs.getDate("data_naix") != null ? rs.getDate("data_naix").toLocalDate() : null,
-                rs.getString("estil")
-        );
+        Escalador e = new Escalador();
+
+        e.setIdEscalador(rs.getInt("id_escalador"));
+        e.setDni(rs.getString("dni"));
+        e.setNom(rs.getString("nom"));
+        e.setCognoms(rs.getString("cognoms"));
+        e.setAlias(rs.getString("alias"));
+
+        Date data = rs.getDate("data_naix");
+
+        if (data != null) {
+            e.setDataNaix(data.toLocalDate());
+        }
+
+        e.setEstilPref(rs.getString("estil_pref"));
+
+        return e;
+
     }
 
 }
